@@ -5,6 +5,7 @@ class WasRun {
     init(name:String){
     }
     func testMethod(){
+        wasRun = true
     }
 }
 
