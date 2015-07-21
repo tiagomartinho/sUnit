@@ -7,9 +7,12 @@ class WasRun {
     func testMethod(){
         wasRun = true
     }
+    func run(){
+        self.testMethod()
+    }
 }
 
 let test = WasRun(name: "testMethod")
 println(test.wasRun)
-test.testMethod()
+test.run()
 println(test.wasRun)
