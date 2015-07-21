@@ -1,12 +1,14 @@
-//
-//  main.swift
-//  sUnit
-//
-//  Created by Martinho on 21/07/15.
-//  Copyright (c) 2015 TM. All rights reserved.
-//
-
 import Foundation
 
-println("Hello, World!")
+class WasRun {
+    var wasRun = false
+    init(name:String){
+    }
+    func testMethod(){
+    }
+}
 
+let test = WasRun(name: "testMethod")
+println(test.wasRun)
+test.testMethod()
+println(test.wasRun)
