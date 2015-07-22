@@ -20,7 +20,13 @@ class TestCase {
     }
 }
 
-let test = TestCase(method: WasRun().testMethod)
-println(test.wasRun)
-test.run()
-println(test.wasRun)
+class TestCaseTest {
+    func testRunning(){
+        let test = TestCase(method: WasRun().testMethod)
+        assert(!test.wasRun)
+        test.run()
+        assert(test.wasRun)
+    }
+}
+
+TestCase(method: TestCaseTest().testRunning).run()
