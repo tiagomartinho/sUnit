@@ -21,14 +21,16 @@ class TestCase {
 }
 
 class TestCaseTest: TestCase {
+    let test = TestCase()
+    
     func testRunning(){
-        let test = TestCase()
         assert(!test.wasRun)
         test.run(WasRun().testMethod)
         assert(test.wasRun)
     }
+    
     func testSetup(){
-        let test = TestCase()
+        assert(!test.wasSetup)
         test.run(WasRun().testMethod)
         assert(test.wasSetup)
     }
