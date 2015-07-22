@@ -8,32 +8,26 @@ class WasRun {
 class TestCase {
     var wasRun = false
     var wasSetup = false
-
-    let method:Void->()
     
-    init(method:Void->()){
-        self.method = method
-    }
-    
-    func run(){
+    func run(method:Void->()){
         wasRun = true
         method()
     }
 }
 
-class TestCaseTest {
+class TestCaseTest: TestCase {
     func testRunning(){
-        let test = TestCase(method: WasRun().testMethod)
+        let test = TestCase()
         assert(!test.wasRun)
-        test.run()
+        test.run(WasRun().testMethod)
         assert(test.wasRun)
     }
     func testSetup(){
-        let test = TestCase(method: WasRun().testMethod)
-        test.run()
+        let test = TestCase()
+        test.run(WasRun().testMethod)
         assert(test.wasSetup)
     }
 }
 
-TestCase(method: TestCaseTest().testRunning).run()
-TestCase(method: TestCaseTest().testSetup).run()
+TestCaseTest().run(TestCaseTest().testRunning)
+TestCaseTest().run(TestCaseTest().testSetup)
