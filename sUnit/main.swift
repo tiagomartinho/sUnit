@@ -7,6 +7,7 @@ class WasRun {
 
 class TestCase {
     var wasRun = false
+    var wasSetup = false
 
     let method:Void->()
     
@@ -27,6 +28,12 @@ class TestCaseTest {
         test.run()
         assert(test.wasRun)
     }
+    func testSetup(){
+        let test = TestCase(method: WasRun().testMethod)
+        test.run()
+        assert(test.wasSetup)
+    }
 }
 
 TestCase(method: TestCaseTest().testRunning).run()
+TestCase(method: TestCaseTest().testSetup).run()
