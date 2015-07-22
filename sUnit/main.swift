@@ -9,7 +9,12 @@ class TestCase {
     var wasRun = false
     var wasSetup = false
     
+    func setUp(){
+        wasSetup = true
+    }
+    
     func run(method:Void->()){
+        self.setUp()
         wasRun = true
         method()
     }
