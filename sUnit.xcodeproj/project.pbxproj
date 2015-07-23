@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EACB97391B61154B0038816D /* TryCatch.m in Sources */ = {isa = PBXBuildFile; fileRef = EACB97381B61154B0038816D /* TryCatch.m */; };
 		EAE14D5F1B5E6C52005352CF /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE14D5E1B5E6C52005352CF /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +24,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		EACB97371B61154B0038816D /* sUnit-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "sUnit-Bridging-Header.h"; sourceTree = "<group>"; };
+		EACB97381B61154B0038816D /* TryCatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TryCatch.m; sourceTree = "<group>"; };
+		EACB973A1B6115590038816D /* TryCatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TryCatch.h; sourceTree = "<group>"; };
 		EAE14D5B1B5E6C52005352CF /* sUnit */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = sUnit; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAE14D5E1B5E6C52005352CF /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -58,6 +62,9 @@
 			isa = PBXGroup;
 			children = (
 				EAE14D5E1B5E6C52005352CF /* main.swift */,
+				EACB97371B61154B0038816D /* sUnit-Bridging-Header.h */,
+				EACB97381B61154B0038816D /* TryCatch.m */,
+				EACB973A1B6115590038816D /* TryCatch.h */,
 			);
 			path = sUnit;
 			sourceTree = "<group>";
@@ -119,6 +126,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAE14D5F1B5E6C52005352CF /* main.swift in Sources */,
+				EACB97391B61154B0038816D /* TryCatch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,14 +214,21 @@
 		EAE14D631B5E6C52005352CF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "sUnit/sUnit-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		EAE14D641B5E6C52005352CF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "sUnit/sUnit-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -236,6 +251,7 @@
 				EAE14D641B5E6C52005352CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

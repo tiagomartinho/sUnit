@@ -30,7 +30,11 @@ class TestCase {
         let result = TestResult()
         result.testStarted()
         self.setUp()
-        method()
+        TryCatch.try({
+            method()
+        }) { exception in
+            result.testFailed()
+        }
         self.tearDown()
         return result
     }
@@ -41,11 +45,15 @@ class TestCase {
 
 class TestResult {
     var runCount = 0
+    var failureCount = 0
     var summary:String {
-        return "\(runCount) run, 0 failed"
+        return "\(runCount) run, \(failureCount) failed"
     }
     func testStarted(){
         runCount+=1
+    }
+    func testFailed(){
+        failureCount+=1
     }
 }
 
