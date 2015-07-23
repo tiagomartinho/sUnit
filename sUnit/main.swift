@@ -23,10 +23,12 @@ class TestCase {
     }
     
     func run(method:Void->())->TestResult{
+        let result = TestResult()
+        result.testStarted()
         self.setUp()
         method()
         self.tearDown()
-        return TestResult()
+        return result
     }
     
     func tearDown(){
@@ -34,8 +36,12 @@ class TestCase {
 }
 
 class TestResult {
+    var runCount = 0
     var summary:String {
-        return "1 run, 0 failed"
+        return "\(runCount) run, 0 failed"
+    }
+    func testStarted(){
+        runCount+=1
     }
 }
 
