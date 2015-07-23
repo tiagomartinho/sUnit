@@ -18,18 +18,24 @@ class WasRun: TestCase {
 
 class TestCase {
     var log = ""
-    var summary = "1 run, 0 failed"
     
     func setUp(){
     }
     
-    func run(method:Void->()){
+    func run(method:Void->())->TestResult{
         self.setUp()
         method()
         self.tearDown()
+        return TestResult()
     }
     
     func tearDown(){
+    }
+}
+
+class TestResult {
+    var summary:String {
+        return "1 run, 0 failed"
     }
 }
 
@@ -42,8 +48,8 @@ class TestCaseTest: TestCase {
     
     func testResult(){
         let test = WasRun()
-        test.run(test.testMethod)
-        assert("1 run, 0 failed" == test.summary)
+        let result = test.run(test.testMethod)
+        assert("1 run, 0 failed" == result.summary)
     }
 }
 
