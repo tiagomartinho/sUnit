@@ -10,6 +10,10 @@ class WasRun: TestCase {
         log += "testMethod "
     }
     
+    func testBrokenMethod(){
+        NSException(name:"name", reason:"reason", userInfo:nil).raise()
+    }
+    
     override func tearDown(){
         super.tearDown()
         log += "tearDown "
@@ -57,6 +61,14 @@ class TestCaseTest: TestCase {
         let result = test.run(test.testMethod)
         assert("1 run, 0 failed" == result.summary)
     }
+    
+    func testFailedResult(){
+        let test = WasRun()
+        let result = test.run(test.testBrokenMethod)
+        assert("1 run, 1 failed" == result.summary)
+    }
 }
 
 TestCaseTest().run(TestCaseTest().testTemplate)
+TestCaseTest().run(TestCaseTest().testResult)
+TestCaseTest().run(TestCaseTest().testFailedResult)
