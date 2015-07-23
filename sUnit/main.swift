@@ -1,40 +1,31 @@
 import Foundation
 
-class WasRun {
+class WasRun: TestCase {
     func testMethod(){
+        log += "testMethod "
     }
 }
 
 class TestCase {
-    var wasRun = false
-    var wasSetup = false
+    var log = ""
     
     func setUp(){
-        wasSetup = true
+        log += "setUp "
     }
     
     func run(method:Void->()){
         self.setUp()
-        wasRun = true
         method()
     }
 }
 
 class TestCaseTest: TestCase {
-    let test = TestCase()
     
-    func testRunning(){
-        assert(!test.wasRun)
-        test.run(WasRun().testMethod)
-        assert(test.wasRun)
-    }
-    
-    func testSetup(){
-        assert(!test.wasSetup)
-        test.run(WasRun().testMethod)
-        assert(test.wasSetup)
+    func testTemplate(){
+        let test = WasRun()
+        test.run(test.testMethod)
+        assert("setUp testMethod " == test.log)
     }
 }
 
-TestCaseTest().run(TestCaseTest().testRunning)
-TestCaseTest().run(TestCaseTest().testSetup)
+TestCaseTest().run(TestCaseTest().testTemplate)
