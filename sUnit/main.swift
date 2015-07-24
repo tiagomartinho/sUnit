@@ -21,15 +21,15 @@ class WasRun: TestCase {
 }
 
 class TestSuite {
-    var tests:[()->()]?
+    var tests:[()->()] = []
     func add(method:Void->()){
-        tests?.append(method)
+        tests.append(method)
     }
     
     func run()->TestResult{
         let result = TestResult()
-        for i in 0..<tests!.count {
-            tests![i]()
+        for i in 0..<tests.count {
+            tests[i]()
         }
         return result
     }
@@ -100,7 +100,7 @@ class TestCaseTest: TestCase {
     }
 }
 
-println(TestCaseTest().run(TestCaseTest().testTemplate).summary)
-println(TestCaseTest().run(TestCaseTest().testResult).summary)
-println(TestCaseTest().run(TestCaseTest().testFailedResult).summary)
-println(TestCaseTest().run(TestCaseTest().testSuite).summary)
+TestCaseTest().run(TestCaseTest().testTemplate)
+TestCaseTest().run(TestCaseTest().testResult)
+TestCaseTest().run(TestCaseTest().testFailedResult)
+TestCaseTest().run(TestCaseTest().testSuite)
