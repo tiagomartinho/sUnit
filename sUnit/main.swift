@@ -21,10 +21,17 @@ class WasRun: TestCase {
 }
 
 class TestSuite {
+    var tests:[()->()]?
     func add(method:Void->()){
+        tests?.append(method)
     }
+    
     func run()->TestResult{
-        return TestResult()
+        let result = TestResult()
+        for i in 0..<tests!.count {
+            tests![i]()
+        }
+        return result
     }
 }
 
