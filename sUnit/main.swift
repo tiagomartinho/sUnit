@@ -6,17 +6,17 @@ class WasRun: TestCase {
         log += "setUp "
     }
     
+    override func tearDown(){
+        super.tearDown()
+        log += "tearDown "
+    }
+    
     func testMethod(){
         log += "testMethod "
     }
     
     func testBrokenMethod(){
         NSException(name:"name", reason:"reason", userInfo:nil).raise()
-    }
-    
-    override func tearDown(){
-        super.tearDown()
-        log += "tearDown "
     }
 }
 
@@ -26,12 +26,10 @@ class TestSuite {
         tests.append(method)
     }
     
-    func run()->TestResult{
-        let result = TestResult()
+    func run(result:TestResult){
         for i in 0..<tests.count {
             tests[i]()
         }
-        return result
     }
 }
 
@@ -41,8 +39,7 @@ class TestCase {
     func setUp(){
     }
     
-    func run(method:Void->())->TestResult{
-        let result = TestResult()
+    func run(method:Void->(),result:TestResult){
         result.testStarted()
         self.setUp()
         TryCatch.try({
@@ -51,7 +48,6 @@ class TestCase {
             result.testFailed()
         }
         self.tearDown()
-        return result
     }
     
     func tearDown(){
@@ -75,32 +71,38 @@ class TestResult {
 class TestCaseTest: TestCase {
     func testTemplate(){
         let test = WasRun()
-        test.run(test.testMethod)
+        let result = TestResult()
+        test.run(test.testMethod,result: result)
         assert("setUp testMethod tearDown " == test.log)
     }
     
     func testResult(){
         let test = WasRun()
-        let result = test.run(test.testMethod)
+        let result = TestResult()
+        test.run(test.testMethod,result: result)
         assert("1 run, 0 failed" == result.summary)
     }
     
     func testFailedResult(){
         let test = WasRun()
-        let result = test.run(test.testBrokenMethod)
+        let result = TestResult()
+        test.run(test.testBrokenMethod,result:result)
         assert("1 run, 1 failed" == result.summary)
     }
     
     func testSuite(){
         let suite = TestSuite()
+        let result = TestResult()
         suite.add(WasRun().testMethod)
         suite.add(WasRun().testBrokenMethod)
-        let result = suite.run()
+        suite.run(result)
         assert("2 run, 1 failed" == result.summary)
     }
 }
 
-TestCaseTest().run(TestCaseTest().testTemplate)
-TestCaseTest().run(TestCaseTest().testResult)
-TestCaseTest().run(TestCaseTest().testFailedResult)
-TestCaseTest().run(TestCaseTest().testSuite)
+let result = TestResult()
+TestCaseTest().run(TestCaseTest().testTemplate,result: result)
+TestCaseTest().run(TestCaseTest().testResult,result: result)
+TestCaseTest().run(TestCaseTest().testFailedResult,result: result)
+TestCaseTest().run(TestCaseTest().testSuite,result: result)
+println(result.summary)
