@@ -20,6 +20,14 @@ class WasRun: TestCase {
     }
 }
 
+class TestSuite {
+    func add(method:Void->()){
+    }
+    func run()->TestResult{
+        return TestResult()
+    }
+}
+
 class TestCase {
     var log = ""
     
@@ -75,8 +83,17 @@ class TestCaseTest: TestCase {
         let result = test.run(test.testBrokenMethod)
         assert("1 run, 1 failed" == result.summary)
     }
+    
+    func testSuite(){
+        let suite = TestSuite()
+        suite.add(WasRun().testMethod)
+        suite.add(WasRun().testBrokenMethod)
+        let result = suite.run()
+        assert("2 run, 1 failed" == result.summary)
+    }
 }
 
-TestCaseTest().run(TestCaseTest().testTemplate)
-TestCaseTest().run(TestCaseTest().testResult)
-TestCaseTest().run(TestCaseTest().testFailedResult)
+println(TestCaseTest().run(TestCaseTest().testTemplate).summary)
+println(TestCaseTest().run(TestCaseTest().testResult).summary)
+println(TestCaseTest().run(TestCaseTest().testFailedResult).summary)
+println(TestCaseTest().run(TestCaseTest().testSuite).summary)
